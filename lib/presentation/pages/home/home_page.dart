@@ -10,13 +10,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final icons = [
-      Icons.home,
-      Icons.analytics,
-      Icons.swap_horiz,
-      Icons.layers,
-      Icons.person,
-    ];
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -55,88 +48,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: 0,
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              log('Home');
-              break;
-            case 1:
-              log('Analysis');
-              break;
-            case 2:
-              log('Transaction');
-              break;
-            case 3:
-              log('Category');
-              break;
-            case 4:
-              log('Profile');
-              break;
-          }
-        },
-      ),
-    );
-  }
-}
-
-class CustomBottomNavBar extends StatelessWidget {
-  final int currentIndex;
-  final ValueChanged<int> onTap;
-
-  const CustomBottomNavBar({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final icons = [
-      Assets.iconsNavBarSVG.home,
-      Assets.iconsNavBarSVG.analysis,
-      Assets.iconsNavBarSVG.transaction,
-      Assets.iconsNavBarSVG.category,
-      Assets.iconsNavBarSVG.profile,
-    ];
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(70),
-      child: Container(
-        height: 108,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        color: const Color(0xFFDFF7E2), // fondo general del nav
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(icons.length, (index) {
-            final isSelected = index == currentIndex;
-
-            return GestureDetector(
-              onTap: () => onTap(index),
-              child: AnimatedContainer(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 11,
-                ),
-                duration: const Duration(milliseconds: 250),
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? const Color(0xFF00D09E)
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: SvgPicture.asset(
-                  width: 25,
-                  height: 31,
-                  fit: BoxFit.scaleDown,
-                  icons[index],
-                ),
-              ),
-            );
-          }),
-        ),
       ),
     );
   }
