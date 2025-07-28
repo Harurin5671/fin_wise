@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
 
+import 'package:fin_wise/config/theme/app_colors.dart';
 import 'package:fin_wise/config/constants/assets.dart';
 
 class AppBottomNavBar extends StatelessWidget {
@@ -24,12 +25,17 @@ class AppBottomNavBar extends StatelessWidget {
       Assets.iconsNavBarSVG.profile,
     ];
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return ClipRRect(
-      borderRadius: BorderRadius.circular(70),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(70),
+        topRight: Radius.circular(70),
+      ),
       child: Container(
         height: 108,
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        color: const Color(0xFFDFF7E2),
+        color: isDarkMode ? AppColors.cyprus : AppColors.lightGreen,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: List.generate(icons.length, (index) {
@@ -61,6 +67,16 @@ class AppBottomNavBar extends StatelessWidget {
                       height: 31,
                       fit: BoxFit.scaleDown,
                       icons[index],
+                      colorFilter: isSelected
+                          ? isDarkMode
+                                ? ColorFilter.mode(
+                                    Color(0xFF052224),
+                                    BlendMode.srcIn,
+                                  )
+                                : null
+                          : isDarkMode
+                          ? ColorFilter.mode(Color(0xFFDFF7E2), BlendMode.srcIn)
+                          : null,
                     ),
                   ),
                 ),
